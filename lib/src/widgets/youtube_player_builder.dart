@@ -30,8 +30,7 @@ class YoutubePlayerBuilder extends StatefulWidget {
   _YoutubePlayerBuilderState createState() => _YoutubePlayerBuilderState();
 }
 
-class _YoutubePlayerBuilderState extends State<YoutubePlayerBuilder>
-    with WidgetsBindingObserver {
+class _YoutubePlayerBuilderState extends State<YoutubePlayerBuilder> with WidgetsBindingObserver {
   final GlobalKey playerKey = GlobalKey();
 
   @override
@@ -66,22 +65,11 @@ class _YoutubePlayerBuilderState extends State<YoutubePlayerBuilder>
   Widget build(BuildContext context) {
     final _player = Container(
       key: playerKey,
-      child: WillPopScope(
-        onWillPop: () async {
-          final controller = widget.player.controller;
-          if (controller.value.isFullScreen) {
-            widget.player.controller.toggleFullScreenMode();
-            return false;
-          }
-          return true;
-        },
-        child: widget.player,
-      ),
+      child: widget.player,
     );
     final child = widget.builder(context, _player);
     return OrientationBuilder(
-      builder: (context, orientation) =>
-          orientation == Orientation.portrait ? child : _player,
+      builder: (context, orientation) => orientation == Orientation.portrait ? child : _player,
     );
   }
 }
